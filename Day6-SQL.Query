@@ -1,0 +1,113 @@
+PROCEDURES:
+
+select l1.book_title,l2.supplier_name,l4.ember_name
+from lms_book_details as l1 join lms_suppliers_details as l2
+on l1.supplier_id=l2.supplier_id
+join lms_book_issue as l3 on l3.book_code=l1.book_code join
+lms_members as l4 on l4.member_id=l3.member_id;
+
+alter proc usp_fetchbookdetails
+as
+begin
+select 1.book_title,l2.supplier_name,l4.member_name
+from lms_book_details as l1 join lms_suppliers_details as l2
+on l1.supplier_id=l2.supplier_id
+join lms_book_issue as l3 on l3.book_code=l1.book_code join
+lms_members as l4 on l4.member_id=l3.member_id;
+end
+
+execute usp_fetchbookdetails;
+
+
+select * from lms_fine_details;
+
+create proc usp_addfine
+(@fine_range char(5), @fine_amount int)
+as 
+begin
+insert into lms_fine_details values(@fine_range,@fine_amount)
+end
+execute usp_addfine 'r9',275
+
+--ddl
+
+create proc usp_ddl
+as
+begin
+alter table lms_fine_details add c1 int
+end
+
+
+--creating the view - virtual table
+create view vw_book_details
+as
+
+select l2.book_title,l2.supplier_name,l4.member_name
+frmo lms_book_details as l1 join lms_suppliers_details as l2
+on l1.supplier_id=l2.supplier_id
+join lms_book_issue as l3 on l3.book_code=l1.book_code join
+lms_members as l4 on l4.member_id=l3.member_id;
+
+select * from vw_book_details where supplier_name like 's%';   
+
+--triggers:
+DML OR DDL OPERATION WE GO FOR TRIGGERS
+Select * from lms_fine_details;
+
+Create trigger trg_InsertFine
+on lms_fine_details
+FOR insert As
+BEGIN
+print 'A New Row added '
+END
+
+
+Create trigger trg_UpdateFine
+on lms_fine_details
+FOR update As
+BEGIN
+print 'A  Row updated in Fine Details table '
+END
+
+
+create trigger trg_deletefine
+on lms_fine_details
+for delete as 
+begin
+rollback
+print 'not allowed to delere'
+end
+
+deletefrom lms_fine_details where fine_range='R11';  --The transaction ended in the trigger. The batch has been aborted.---
+
+TCL COMMONDS LEARN 
+
+
+
+
+
+-----C SHARP-----
+
+combination of c and c++
+double click---> create new project---> console(cSharp)----->selct the file location and give the 
+file name starting with capital letter ----->select 3.1 .net frame work and now 
+the programming screen  would visible and now write the c sharp code and now run
+ it it will display the output in the command screen 
+
+console.Writelline  --- printf+\n
+console.write ------printf without \n
+ giving the input in a static way and the data remains same in all program
+            int x = 20;     // static
+            int y = 54;
+            Console.WriteLine(x + y);
+ReadLine method take the input as string
+int.parse  method convert the string into 32 bit signed integer
+int a, b;
+            Console.WriteLine("enter the a value");
+            a = int.Parse(Console.ReadLine());           //dynamic input   user input would be given 
+            Console.WriteLine("enter the a value");
+            b = int.Parse(Console.ReadLine());
+            Console.WriteLine(a+b);
+            Console.WriteLine("sum of the numbers :"+(a+b));     // concatination of the message that is 
+									required to display and the data will be displayed
+           
